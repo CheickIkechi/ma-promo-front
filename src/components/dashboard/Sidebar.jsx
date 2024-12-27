@@ -6,7 +6,8 @@ import { logout } from '../../redux/userAction'; // Assure-toi que l'action de d
 
 const Sidebar = ({ onMenuClick, isOpen, toggleSidebar }) => {
   const userState = useSelector((state) => state.userLogin);
-  const { role } = userState.userInfo || {};
+  const { userInfo } = userState;
+  const { username, role } = userInfo || {}; // Récupérer le nom et le rôle de l'utilisateur
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -42,7 +43,17 @@ const Sidebar = ({ onMenuClick, isOpen, toggleSidebar }) => {
         <FaTimesCircle />
       </button>
 
-      <h2 className="text-xl font-semibold mb-6">Tableau de bord</h2>
+      <h2 className="text-xl font-semibold mb-6 text-center">Tableau de bord</h2>
+
+      {/* Affichage du nom et du rôle de l'utilisateur */}
+      {userInfo && (
+        <div className="mb-4 text-center">
+          <h2 className="text-2xl font-semibold mb-4 text-center">Bienvenue !</h2>
+          <p className="text-lg font-medium underline underline-offset-8">{username}</p>
+          <p className="text-sm text-gray-300 mt-2">{role}</p>
+        </div>
+      )}
+
       <ul>
         <li>
           <button
@@ -74,7 +85,6 @@ const Sidebar = ({ onMenuClick, isOpen, toggleSidebar }) => {
           </button>
         </li>
 
-
         {/* Éléments spécifiques aux rôles */}
         {role === 'tresorier' && (
           <>
@@ -104,36 +114,36 @@ const Sidebar = ({ onMenuClick, isOpen, toggleSidebar }) => {
             <button
               onClick={() => onMenuClick("ValidateByPresidentAndPco")}
               className="block py-2 hover:bg-green-700 w-full text-left"
+              >
+                <FaCheckCircle className="mr-2" />
+                Valider
+              </button>
+            </li>
+          )}
+  
+          <li>
+            <button
+              onClick={() => onMenuClick("modify-password")}
+              className="block py-2 hover:bg-green-700 w-full text-left"
             >
-              <FaCheckCircle className="mr-2" />
-              Valider
+              <FaKey className="mr-2" />
+              Modifier le mot de passe
             </button>
           </li>
-        )}
-
-        <li>
-          <button
-            onClick={() => onMenuClick("modify-password")}
-            className="block py-2 hover:bg-green-700 w-full text-left"
-          >
-            <FaKey className="mr-2" />
-            Modifier le mot de passe
-          </button>
-        </li>
-
-        {/* Bouton de déconnexion */}
-        <li>
-          <button
-            onClick={handleLogout}
-            className="block py-2 hover:bg-green-700 w-full text-left mt-6 text-red-500"
-          >
-            <FaSignOutAlt className="mr-2" />
-            Se déconnecter
-          </button>
-        </li>
-      </ul>
-    </div>
-  );
-};
-
-export default Sidebar;
+  
+          {/* Bouton de déconnexion */}
+          <li>
+            <button
+              onClick={handleLogout}
+              className="block py-2 hover:bg-green-700 w-full text-left mt-6 text-red-500"
+            >
+              <FaSignOutAlt className="mr-2" />
+              Se déconnecter
+            </button>
+          </li>
+        </ul>
+      </div>
+    );
+  };
+  
+  export default Sidebar;

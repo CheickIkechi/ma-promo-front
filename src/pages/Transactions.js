@@ -108,21 +108,21 @@ const Transactions = () => {
         <input
           type="text"
           placeholder="Rechercher par motif"
-          className="border p-1 w-full md:w-2/3"
+          className="border p-2 w-full md:w-2/3"
           value={filter.reason}
           onChange={(e) => setFilter({ ...filter, reason: e.target.value })}
         />
         <input
           type="number"
           placeholder="Rechercher par montant"
-          className="border p-1 w-full md:w-2/3"
+          className="border p-2 w-full md:w-2/3"
           value={filter.price}
           onChange={(e) => setFilter({ ...filter, price: e.target.value })}
         />
         <input
           type="date"
           placeholder="Rechercher par date"
-          className="border p-1 w-full md:w-2/3"
+          className="border p-2 w-full md:w-2/3"
           value={filter.date}
           onChange={(e) => setFilter({ ...filter, date: e.target.value })}
         />
